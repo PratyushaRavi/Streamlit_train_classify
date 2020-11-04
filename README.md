@@ -8,6 +8,7 @@ So I have built a custom Image classifier web app in which you can:
 **Dependencies to run**:
 * It is recomended to install Anaconda and install all the dependecies in a virtual environment.*
 -Installation link : [here](https://docs.anaconda.com/anaconda/install/)
+
 -Details to create virtual environment: [here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 
 Dependenies to have:
