@@ -6,11 +6,11 @@ So I have built a custom Image classifier web app in which you can:
 -> You can upload images to instantly get *prediction *
 
 **Dependencies to run**:
-* It is recomended to install Anaconda and install all the dependecies in a virtual environment.*  
+ It is recomended to install Anaconda and install all the dependecies in a virtual environment.</br>
 
--Installation link : [here](https://docs.anaconda.com/anaconda/install/)
+-Installation link : [here](https://docs.anaconda.com/anaconda/install/)</br>
 
--Details to create virtual environment: [here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
+-Details to create virtual environment: [here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)</br>
 
 Dependenies to have:
 *Numpy*
