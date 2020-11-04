@@ -1,7 +1,7 @@
 # Streamlit 
 ## The fastest way to build web apps fro Machine Learning and Data science Applications
 
-So I have built a custom Image classifier web app in which you can:
+So I have built a custom Image classifier web app in which you can:</br>
 -> Upload your image dataset and instantly train a Neural Network  with considerable accuracy with just a click!</br>
 -> You can upload images to instantly get *prediction*</br>
 
@@ -12,11 +12,11 @@ Installation link : [here](https://docs.anaconda.com/anaconda/install/)</br>
 
 Details to create virtual environment: [here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)</br>
 
-Dependenies to have:
-*Numpy*
-*Tensorflow*
-*Pillow*
-*Streamlit*
+Dependenies to have:</br>
+*Numpy*</br>
+*Tensorflow*</br>
+*Pillow*</br>
+*Streamlit*</br>
 
 To run it on your local host:</br>
  `streamlit run streamlit_train_classify.py`</br>
