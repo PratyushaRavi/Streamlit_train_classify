@@ -2,8 +2,8 @@
 ## The fastest way to build web apps fro Machine Learning and Data science Applications
 
 So I have built a custom Image classifier web app in which you can:
--> Upload your image dataset and instantly train a Neural Network  with considerable accuracy with just a click!
--> You can upload images to instantly get *prediction *
+-> Upload your image dataset and instantly train a Neural Network  with considerable accuracy with just a click!</br>
+-> You can upload images to instantly get *prediction*</br>
 
 **Dependencies to run**:
 * It is recomended to install Anaconda and install all the dependecies in a virtual environment*.</br>
