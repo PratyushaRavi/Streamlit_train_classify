@@ -1,51 +1,59 @@
 import streamlit as st
 import numpy as np
 from PIL import Image
-import random
 import tensorflow as tf
 from tensorflow.keras import layers
 from keras.preprocessing.image import load_img
 from keras.preprocessing.image import img_to_array
 from tensorflow.keras.applications.vgg16 import VGG16
 
-st.header(" My teachable Machine clone")
-st.sidebar.markdown(" Upload your datasets here",)
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-X = []
-y = []
+st.header(" Image Classifier")
 
+st.sidebar.markdown(" ## Upload the data here  ")
 
-for x in range(2):
-    images = st.sidebar.file_uploader(str(x), type=['jpg', 'jpeg','png'], accept_multiple_files=True)
-    if images is not None:
-        for index, image in enumerate(images):
-            image = Image.open(image)
-            img_array = np.array(image.getdata())
-            image = np.resize(img_array, (224, 224, 3))
-            X.append(image)
-            y.append(x)
+class_no = 2
 
+def prep_data(images,cls):
+    train_img = []
+    train_label = []
+    for index, image in enumerate(images):
+        image = Image.open(image)
+        img_array = np.array(image.getdata())
+        image = np.resize(img_array, (224, 224, 3))
+        train_img.append(image)
+        train_label.append(cls)
 
-@st.cache
-def prep_data(train_img,train_label):
-    c = list(zip(train_img, train_label))
-    random.shuffle(c)
-    train_img, train_label = zip(*c)
-
-    train_img = np.array(X).reshape(-1, 224, 224, 3)
+    train_img = np.array(train_img).reshape(-1, 224, 224, 3)
     train_label = np.array(train_label)
 
     train_img = train_img / 255
+    print("runn")
 
     return train_img, train_label
 
+def shuffle_data(train1,label1,train0,label0):
+    X = np.append(train0, train1, axis=0)
+    y = np.append(label0, label1, axis=0)
+    # shuffle data
+    indices = np.arange(X.shape[0])
+    np.random.shuffle(indices)
 
-prep = st.checkbox("Start preparing data")
-if prep:
-    X, y = prep_data(X, y)
+    X = X[indices]
+    y = y[indices]
+
+    return X,y
 
 
-@st.cache
+
+uploaded_img0 = st.sidebar.file_uploader("Class 0", type=['jpg', 'jpeg', 'png'], accept_multiple_files=True)
+uploaded_img1 = st.sidebar.file_uploader("Class 1", type=['jpg', 'jpeg', 'png'], accept_multiple_files=True)
+
+
+
+
 def create_train_model(train_img,train_label):
     base_model = VGG16(input_shape=(224, 224, 3),  # Shape of our images
                        include_top=False,  # Leave out the last fully connected layer
@@ -62,16 +70,23 @@ def create_train_model(train_img,train_label):
 
     model.compile(optimizer=tf.keras.optimizers.RMSprop(lr=0.0001), loss='binary_crossentropy', metrics=['acc'])
 
-    (model.fit(train_img, train_label, epochs=10))
+    model.fit(train_img, train_label, epochs=10)
     return model
 
 
-
-train = st.checkbox("Start Training model")
-if train:
-    model = create_train_model(X,y)
-
 st.markdown("Upload images to get prediction")
+
+
+
+
+prep = st.checkbox("Prep And Train")
+if prep:
+    X0, y0 = prep_data(uploaded_img0, 0)
+    X1, y1 = prep_data(uploaded_img1, 1)
+    X, y = shuffle_data(X1, y1, X0, y0)
+    model = create_train_model(X, y)
+    st.success("Done")
+
 
 img_uploaded = st.file_uploader("", type=['jpg', 'jpeg','png'], accept_multiple_files=False)
 if img_uploaded is not None:
@@ -80,24 +95,32 @@ if img_uploaded is not None:
 
 def predict(image1):
     image = load_img(image1, target_size=(224, 224))
-    # convert the image pixels to a numpy array
     image = img_to_array(image)
-    # reshape data for the model
     image = image.reshape((1, image.shape[0], image.shape[1], image.shape[2]))
-    # prepare the image for the VGG model
     image = image / 255
-    # predict the probability across all output classes
     yhat = model.predict(image)
 
     return yhat
-
 
 
 out = st.checkbox("Predict")
 if out:
     ans = predict(img_uploaded)
     if ans > 0.5:
-        st.write("Dog")
+         st.write("Dog")
     else:
         st.write("Cat")
+
+
+
+
+
+
+
+
+
+
+
+
+
 
