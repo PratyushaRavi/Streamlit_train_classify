@@ -6,11 +6,11 @@ So I have built a custom Image classifier web app in which you can:
 -> You can upload images to instantly get *prediction *
 
 **Dependencies to run**:
- It is recomended to install Anaconda and install all the dependecies in a virtual environment.</br>
+* It is recomended to install Anaconda and install all the dependecies in a virtual environment*.</br>
 
--Installation link : [here](https://docs.anaconda.com/anaconda/install/)</br>
+Installation link : [here](https://docs.anaconda.com/anaconda/install/)</br>
 
--Details to create virtual environment: [here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)</br>
+Details to create virtual environment: [here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)</br>
 
 Dependenies to have:
 *Numpy*
@@ -18,9 +18,9 @@ Dependenies to have:
 *Pillow*
 *Streamlit*
 
-To run it on your local host:
- `streamlit run streamlit_train_classify.py`
-or
- `streamlit run {*//github link of streamlit_train_classify.py script*}`
+To run it on your local host:</br>
+ `streamlit run streamlit_train_classify.py`</br>
+or</br>
+ `streamlit run {*//github link of streamlit_train_classify.py script*}`</br>
 
 Have fun!
