@@ -12,4 +12,8 @@ Pillow
 Streamlit
 
 To run it on your local host:
->>> streamlit run 
+>>> streamlit run streamlit_train_classify.py
+or
+>>> streamlit run {//github link of streamlit_train_classify.py script}
+
+Have fun!
