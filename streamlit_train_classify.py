@@ -3,19 +3,19 @@ import numpy as np
 from PIL import Image
 import tensorflow as tf
 from tensorflow.keras import layers
-from keras.preprocessing.image import load_img
 from keras.preprocessing.image import img_to_array
 from tensorflow.keras.applications.vgg16 import VGG16
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-st.header(" Image Classifier")
+st.header(" Teachable Image classifier")
 
 st.sidebar.markdown(" ## Upload the data here  ")
 
 class_no = 2
 
+@st.cache
 def prep_data(images,cls):
     train_img = []
     train_label = []
@@ -33,7 +33,7 @@ def prep_data(images,cls):
     print("runn")
 
     return train_img, train_label
-
+@st.cache
 def shuffle_data(train1,label1,train0,label0):
     X = np.append(train0, train1, axis=0)
     y = np.append(label0, label1, axis=0)
@@ -53,7 +53,7 @@ uploaded_img1 = st.sidebar.file_uploader("Class 1", type=['jpg', 'jpeg', 'png'],
 
 
 
-
+@st.cache
 def create_train_model(train_img,train_label):
     base_model = VGG16(input_shape=(224, 224, 3),  # Shape of our images
                        include_top=False,  # Leave out the last fully connected layer
@@ -74,8 +74,8 @@ def create_train_model(train_img,train_label):
     return model
 
 
-st.markdown("Upload images to get prediction")
-
+st.markdown("Want to train an image classifier without usinf any code and instantenously use it to classify unseen images? We got you covered!")
+st.markdown("You can upload the images in the sidebar")
 
 
 
@@ -93,8 +93,10 @@ if img_uploaded is not None:
     to_predict = Image.open(img_uploaded)
     st.image(to_predict)
 
-def predict(image1):
-    image = load_img(image1, target_size=(224, 224))
+@st.cache
+def predict(to_pred):
+    img_array = np.array(to_pred.getdata())
+    image = np.resize(img_array, (224, 224, 3))
     image = img_to_array(image)
     image = image.reshape((1, image.shape[0], image.shape[1], image.shape[2]))
     image = image / 255
@@ -105,22 +107,8 @@ def predict(image1):
 
 out = st.checkbox("Predict")
 if out:
-    ans = predict(img_uploaded)
+    ans = predict(to_predict)
     if ans > 0.5:
-         st.write("Dog")
+         st.write(" Predicted class is : Class 1")
     else:
-        st.write("Cat")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        st.write("Predicted class is : Class 0")
